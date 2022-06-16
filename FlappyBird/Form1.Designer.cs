@@ -28,20 +28,49 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Location = new System.Drawing.Point(154, 75);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(230, 288);
+            this.panel1.TabIndex = 0;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(31, 157);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(137, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Dej si dalsi tocku lol";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::FlappyBird.Properties.Resources.hruska;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(549, 450);
+            this.Controls.Add(this.panel1);
+            this.DoubleBuffered = true;
             this.Name = "Form1";
             this.Text = "Form1";
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Form1_KeyPress);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private Panel panel1;
+        private Button button1;
     }
 }

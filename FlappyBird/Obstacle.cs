@@ -59,7 +59,7 @@ namespace FlappyBird
         {
             pbs.ForEach(pb =>
             {
-                if(pb.InvokeRequired)
+                if(pb.InvokeRequired) 
                 { 
                     pb.Invoke(() => pb.Location = new Point(x, pb.Location.Y));
                 }

@@ -17,7 +17,9 @@ namespace FlappyBird
                 Width = 50,
                 Height = 50,
                 Location = new Point(0, 0),
-                BackColor = Color.Yellow
+                BackgroundImage = Properties.Resources.stepis_3,
+                BackgroundImageLayout = ImageLayout.Stretch,
+                BackColor = Color.Transparent
             };
             if (Form1.instance.InvokeRequired)
             {
@@ -50,6 +52,7 @@ namespace FlappyBird
                 {
                     setY(pb.Location.Y - 6);
                     falling = false;
+                    Console.WriteLine(pb.Location.Y);
                     Thread.Sleep(10);
                 }
                 falling = true;
