@@ -19,7 +19,7 @@ namespace FlappyBird
 
             list.Add(this);
 
-            double percent = (new Random().Next(1, 9) * 10) / (double)100;
+            double percent = (new Random().Next(4, 9) * 10) / (double)100;
 
 
             pbs.Add(new PictureBox()
@@ -55,7 +55,7 @@ namespace FlappyBird
             setX(Form1.instance.Width);
         }
 
-        public void setX(int x)
+        public void setX(int x) 
         {
             pbs.ForEach(pb =>
             {

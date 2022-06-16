@@ -9,6 +9,7 @@ namespace FlappyBird
     public class Player
     {
         public PictureBox pb;
+        public bool falling = true;
         public Player()
         {
             pb = new PictureBox()
@@ -39,6 +40,20 @@ namespace FlappyBird
                 pb.Location = new Point(pb.Location.X, y);
             }
 
+        }
+
+        public void Jump()
+        {
+            new Thread(() =>
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    setY(pb.Location.Y - 6);
+                    falling = false;
+                    Thread.Sleep(10);
+                }
+                falling = true;
+            }).Start();
         }
     }
 }
