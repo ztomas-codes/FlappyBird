@@ -15,34 +15,41 @@ namespace FlappyBird
         {
             instance = this;
             InitializeComponent();
-            player = new Player();
+            player = new Player(this);
             panel = panel1;
+
+            pictureBox2.Parent = pictureBox1;
 
 
             Start();
 
         }
 
+        public void AddScore()
+        {
+            if (label1.InvokeRequired)
+                label1.Invoke(() => label1.Text = (int.Parse(label1.Text) + 1).ToString());
+            else
+                label1.Text = (int.Parse(label1.Text) + 1).ToString();
+        }
 
-        public static void Start()
+
+        public void Start()
         {
 
-
-            Console.WriteLine("started");
-
+            turnedon = true;
             if (panel.InvokeRequired)
                 panel.Invoke(() => panel.Visible = false);
             else panel.Visible = false;
 
             player.setY(20);
-
-            if (update != null) update.Interrupt();
-            update = new Thread(x => Updates());
+            new Obstacle(this);
+            update = new Thread(() => Updates());
             update.Start();
         }
 
 
-        public static void Stop()
+        public void Stop()
         {
             turnedon = false;
             if (panel.InvokeRequired)
@@ -50,8 +57,18 @@ namespace FlappyBird
             else panel.Visible = true;
 
         }
-        
-        public static void Updates()
+
+        public void NewGame()
+        {
+            Obstacle.list.Clear();
+            turnedon = false;
+            FirstWindow.NewGame();
+            
+            this.Close();
+            this.Dispose();
+        }
+
+        public void Updates()
         {
             turnedon = true;
             int i = 0;
@@ -72,13 +89,20 @@ namespace FlappyBird
                         Obstacle.list[0].Delete();
 
                     }
+                    if (Obstacle.list[0].pbs[0].Location.X < -50 & Obstacle.list[0].Collected == false)
+                    {
+                        Obstacle.list[0].Collected = true;
+                        AddScore();
+                    }
                 }
+            
 
-                if (player.falling) player.setY(player.pb.Location.Y + 8);
+
+                if (player.falling) player.setY(player.pb.Location.Y + 6);
 
                 if (i == 150)
                 {
-                    new Obstacle();
+                    new Obstacle(this);
                     i = 0;
                 }
 
@@ -111,16 +135,17 @@ namespace FlappyBird
 
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 'w')
+            if (e.KeyChar == 'w' && turnedon)
             {
                 player.Jump();
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Start();
-        }
 
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            NewGame();
+
+        }
     }
 }

@@ -10,8 +10,15 @@ namespace FlappyBird
     {
         public PictureBox pb;
         public bool falling = true;
-        public Player()
+
+        public Form1 instance;
+        
+        public Player(Form1 i)
         {
+
+            instance = i;
+            
+            falling = true;
             pb = new PictureBox()
             {
                 Width = 50,
@@ -21,13 +28,13 @@ namespace FlappyBird
                 BackgroundImageLayout = ImageLayout.Stretch,
                 BackColor = Color.Transparent
             };
-            if (Form1.instance.InvokeRequired)
+            if (instance.InvokeRequired)
             {
-                Form1.instance.Invoke(() => Form1.instance.Controls.Add(pb));
+                instance.Invoke(() => instance.Controls.Add(pb));
             }
             else
             {
-                Form1.instance.Controls.Add(pb);
+                instance.Controls.Add(pb);
             }
         }
 
@@ -48,12 +55,12 @@ namespace FlappyBird
         {
             new Thread(() =>
             {
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 20; i++)
                 {
-                    setY(pb.Location.Y - 6);
+                    setY(pb.Location.Y - 3);
                     falling = false;
                     Console.WriteLine(pb.Location.Y);
-                    Thread.Sleep(10);
+                    Thread.Sleep(5);
                 }
                 falling = true;
             }).Start();

@@ -14,8 +14,13 @@ namespace FlappyBird
 
         public List<PictureBox> pbs = new List<PictureBox>();
 
-        public Obstacle()
+        public bool Collected = false;
+
+        public Form1 instance;
+
+        public Obstacle(Form1 i)
         {
+            instance = i;
 
             list.Add(this);
 
@@ -25,34 +30,43 @@ namespace FlappyBird
             pbs.Add(new PictureBox()
             {
                 Width = 100,
-                Height = (int)(Form1.instance.Height * (percent - 0.3)),
+                Height = (int)(instance.Height * (percent - 0.3)),
                 Location = new Point(0, 0),
-                BackColor = Color.Green
+                BackColor = Color.DeepPink
             });
 
             pbs.Add(new PictureBox()
             {
                 Width = 100,
-                Height = (int)(Form1.instance.Height * (1 - percent)),
-                Location = new Point(0, Form1.instance.Height - (int)(Form1.instance.Height * (1 - percent))),
-                BackColor = Color.Green
+                Height = (int)(instance.Height * (1 - percent)),
+                Location = new Point(0, instance.Height - (int)(instance.Height * (1 - percent))),
+                BackColor = Color.DeepPink
+
+
+
+
+
+
+
+
+
             });
 
 
             pbs.ForEach(x =>
             {
-                if (Form1.instance.InvokeRequired)
+                if (instance.InvokeRequired)
                 {
-                    Form1.instance.Invoke(() => Form1.instance.Controls.Add(x));
+                    instance.Invoke(() => instance.Controls.Add(x));
                 }
                 else
                 {
-                    Form1.instance.Controls.Add(x);
+                    instance.Controls.Add(x);
                 }
 
             });
 
-            setX(Form1.instance.Width);
+            setX(instance.Width);
         }
 
         public void setX(int x) 
@@ -72,13 +86,13 @@ namespace FlappyBird
 
         public void Delete()
         {
-            if (Form1.instance.InvokeRequired)
+            if (instance.InvokeRequired)
             {
-                Form1.instance.Invoke(() =>
+                instance.Invoke(() =>
                 {
                     pbs.ForEach(x =>
                     {
-                        Form1.instance.Controls.Remove(x);
+                        instance.Controls.Remove(x);
                         list.Remove(this);
                     });
                 });
@@ -87,7 +101,7 @@ namespace FlappyBird
             {
                 pbs.ForEach(x =>
                 {
-                    Form1.instance.Controls.Remove(x);
+                    instance.Controls.Remove(x);
                     list.Remove(this);
                 });
             }
